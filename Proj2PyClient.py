@@ -58,11 +58,11 @@ def client():
             # iterative DNS
             elif flag == 'it':
 
-                # the while loop condition checks if the flag is nx or aa
+                # the while loop condition checks if the flag is nx or aa or ra
                 # nx or aa means that the iterative DNS has ended
                 # if nx and aa aren't the flag of the response, continue DNS
                 # else, just print the response
-                while flag != 'nx' and flag != 'aa':
+                while flag != 'nx' and flag != 'aa' and flag != 'ra':
                     request = build_request(host_name, i, 'it')
                     cs.send(request.encode('utf-8'))
                     response = cs.recv(200)
