@@ -6,7 +6,6 @@ import socket
 # Test
 # Hi
 
-
 def server():
     try:
         ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
