@@ -35,6 +35,8 @@ def server():
     with open("rsdatabase.txt", "r") as rsdatabase:
         entries = rsdatabase.readlines()
 
+    #print response in rsresponses.txt
+    
     request = csockid.recv(200)
     request = request.decode('utf-8')
     
