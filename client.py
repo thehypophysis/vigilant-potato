@@ -1,9 +1,7 @@
 import threading
 import time
 import random
-
 import socket
-
 import sys
 
 def get_flag(request):

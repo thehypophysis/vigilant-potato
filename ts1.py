@@ -82,8 +82,8 @@ def ts1():
         response = build_response(name, '0.0.0.0', i, 'nx')
         csockid.send(response.encode('utf-8'))
     #Close the server socket
-    ss.close()
-    exit()
+    #ss.close()
+    #exit()
 
 if __name__ == "__main__":
     t1 = threading.Thread(name='ts1', target=ts1)
