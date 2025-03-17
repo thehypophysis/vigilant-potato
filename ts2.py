@@ -21,7 +21,7 @@ def build_response(domain_name, IP, i, flag):
     i = i+1
     return '1 ' + domain_name + " " + IP + " " + i + " " + flag
 
-def ts1():
+def ts2():
     try:
         ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         print("[S]: Server socket created")
@@ -34,16 +34,16 @@ def ts1():
     ss.bind(server_binding)
     ss.listen(1)
     host = socket.gethostname()
-    print("[TS1]: Server host name is {}".format(host))
+    print("[TS2]: Server host name is {}".format(host))
     localhost_ip = (socket.gethostbyname(host))
-    print("[TS1]: Server IP address is {}".format(localhost_ip))
+    print("[TS2]: Server IP address is {}".format(localhost_ip))
     csockid, addr = ss.accept()
-    print ("[TS1]: Got a connection request from a client/server at {}".format(addr))
+    print ("[TS2]: Got a connection request from a client/server at {}".format(addr))
 
     #read in local database
-    with open("ts1database.txt", "r") as ts1_file:
-        entries = ts1_file.readlines()
-    #print response in ts1responses.txt
+    with open("ts2database.txt", "r") as ts2_file:
+        entries = ts2_file.readlines()
+    #print response in ts2responses.txt
     
     # princeton.com 192.1.1.7
     # www.google.com 9.7.5.6
@@ -60,7 +60,7 @@ def ts1():
     i = split_request[2]        #request IP
     #flag = split_request[len(split_request)-1]
 
-    # traverse the entries from the ts1database.txt to see if any match the request
+    # traverse the entries from the ts2database.txt to see if any match the request
     is_found = 0        #internal flag for name found in entries, if 0 then will sends nx
     for entry in entries:
         # entries will read: princeton.com 192.1.1.7        DomainName IPAddress
@@ -86,5 +86,5 @@ def ts1():
     exit()
 
 if __name__ == "__main__":
-    t1 = threading.Thread(name='ts1', target=ts1)
-    t1.start()
+    t2 = threading.Thread(name='ts2', target=ts2)
+    t2.start()
