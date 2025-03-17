@@ -61,9 +61,10 @@ def server():
         
         else:
             # check if it's ts1 or ts2
-            last3 = name[name.len()-4,name.len()]
+            split_name = name.split(".")
+            last_part = split_name[len(split_name)-1]
             
-            if last3 == entry_name:
+            if last_part == entry_name:
                 # get request flag and check if it is rd or it
                 is_found = 1
                 flag = split_request[3]
