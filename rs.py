@@ -79,7 +79,8 @@ def server():
                     # recursive, send request to ts1/ts2
                     request = build_request(name, i, 'rd')
                     ts_addr = socket.gethostbyname(split_entry[1])
-                    ss.connect(ts_addr, port)
+                    binding = (ts_addr, port)
+                    ss.connect(binding)
                     ss.send(request.encode('utf-8'))
 
                     # send to the client the response received
