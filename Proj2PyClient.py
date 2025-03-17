@@ -69,6 +69,8 @@ def client():
                     response = response.decode('utf-8')
                     flag = get_flag(response)
                     out_file.write(response + "\n")
+                    if flag == 'aa' or flag == 'nx':
+                        break;
                     List = response.split()
                     # ts_domain = List[2]
                     ts_addr = List[3]
