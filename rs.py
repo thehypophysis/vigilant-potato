@@ -1,4 +1,5 @@
-#updated 10:55 by Nami
+# HARDCODED PORTS
+# updated 12:06 by Nami
 
 import threading
 import time
@@ -60,11 +61,15 @@ def server():
         IP = split_entry[1]
         i = split_request[2]
 
+        #checkpoint reached
         if name == entry_name:
             # build response
             response = build_response(entry_name, IP, i, 'aa')
             csockid.send(response.encode('utf-8'))
             is_found = 1
+            testresponse = response.decode('utf-8')
+            #out_file.write(response + "\n")
+            print("if name == entry_name " +testresponse + "\n")
             break
         
         else:
@@ -76,34 +81,49 @@ def server():
                 # get request flag and check if it is rd or it
                 is_found = 1
                 flag = split_request[3]
+                if last_part == 'com':
+                    port = 47000 #ts1
+                else:
+                    port = 48000 #ts2
 
                 if flag == 'rd':
+                    print ("checkpoint start")
                     # recursive, send request to ts1/ts2
                     request = build_request(name, i, 'rd')
-                    ts_addr = socket.gethostbyname(split_entry[1])
-                    binding = (ts_addr, port)
+                    #ts_addr = socket.gethostbyname(split_entry[1])               UNDO
+                    binding = ('popsicle.cs.rutgers.edu', 47000)
                     ss.connect(binding)
                     ss.send(request.encode('utf-8'))
+                    print ("A checkpoint")
 
                     # send to the client the response received
                     # we don't have to encode response before sending because the ts already encoded it for us
                     response = ss.recv(200)
                     csockid.send(response)
-                    print("")
+                    
+                    testresponse = response.decode('utf-8')
+                    #out_file.write(response + "\n")
+                    print("if rd " +testresponse + "\n")
 
                 elif flag == "it":
                     # iterative, send response to client
                     response = build_response(entry_name, IP, i, 'ns')
                     csockid.send(response.encode('utf-8'))
-                    print("")
+                    testresponse = response.decode('utf-8')
+                    #out_file.write(response + "\n")
+                    print("if it " +testresponse + "\n")
                     break
             else:
-                print("")
+                print("else for last_part == entry_name")
+            print ("X checkpoint END")      # not being reached
     
     if is_found == 0:
         # this means there was nothing associated to request found in rsdatabase
         IP = split_entry[1]
         i = split_request[2]
+        testresponse = response.decode('utf-8')
+        #out_file.write(response + "\n")
+        print("if is_found ==0 " +testresponse + "\n")
         response = build_response(entry_name, '0.0.0.0', i, 'nx')
         csockid.send(response.encode('utf-8'))
 

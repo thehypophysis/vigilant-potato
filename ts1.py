@@ -74,11 +74,15 @@ def ts1():
             # build response
             response = build_response(entry_name, IP, i, 'aa')
             csockid.send(response.encode('utf-8'))
-            print(response + "\n")                  #WRITE TO FILE
+            testresponse = response.decode('utf-8')
+            #out_file.write(response + "\n")
+            print("if AA " +testresponse + "\n")
             is_found = 1
     # if request not found in TS entries, send back 0.0.0.0 with nx
     if is_found == 0:
-        print(response + "\n")                  #WRITE TO FILE
+        testresponse = response.decode('utf-8')
+        #out_file.write(response + "\n")
+        print("if NX " +testresponse + "\n")
         response = build_response(name, '0.0.0.0', i, 'nx')
         csockid.send(response.encode('utf-8'))
     #Close the server socket

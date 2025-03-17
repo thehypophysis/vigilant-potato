@@ -1,3 +1,4 @@
+# python3 client.py popsicle.cs.rutgers.edu 45000
 import threading
 import time
 import random
@@ -24,7 +25,7 @@ def client():
     port = int(sys.argv[2])
 
     # connect to the root server
-    server_binding = (RS_addr, port)
+    server_binding = (RS_addr, 46000) #server_binding = (RS_addr, port)
     cs.connect(server_binding)
 
     # creates a list of requests
@@ -50,6 +51,7 @@ def client():
                 cs.send(request.encode('utf-8'))
                 response = cs.recv(200)
                 response = response.decode('utf-8')
+                out_file.write(response + "\n")
                 print(response + "\n")
                 i = i + 1
 
@@ -71,7 +73,12 @@ def client():
                         break;
                     List = response.split()
                     # ts_domain = List[2]
-                    ts_addr = List[3]
+                    # response: 1 DomainName IP ID Flag
+                    ts_addr = List[2]
+                    if ts_addr == '192.1.1.7':
+                        port = 47000 #ts1
+                    else:
+                        port = 48000 #ts2
                     cs.connect(ts_addr, port)
                     i = i + 1
                 else:
